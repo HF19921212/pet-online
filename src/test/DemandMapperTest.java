@@ -6,8 +6,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import util.QueryUtils;
 import vo.DemandPageVo;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +28,7 @@ public class DemandMapperTest {
     public void selectList() {
         System.out.println(("----- selectList method test ------"));
         Map<String, Object> params = new HashMap<String, Object>();
-        DemandPageVo demandPageVo = getDemandVo(params);
+        DemandPageVo demandPageVo = QueryUtils.getDemandVo(params);
         List<Demand> demandList = demandMapper.selectList(demandPageVo);
         Assert.assertEquals(2, demandList.size());
     }
@@ -38,31 +40,30 @@ public class DemandMapperTest {
     public void selectCount() {
         System.out.println(("----- selectCount method test ------"));
         Map<String, Object> params = new HashMap<String, Object>();
-        DemandPageVo demandPageVo = getDemandVo(params);
+        DemandPageVo demandPageVo = QueryUtils.getDemandVo(params);
         Integer count = demandMapper.selectCount(demandPageVo);
         Assert.assertEquals(2, count.intValue());
     }
 
     /**
-     * 构造分页参数
-     *
-     * @param params
-     * @return
+     * 插入一条记录
      */
-    private DemandPageVo getDemandVo(Map<String, Object> params) {
-        Integer pageNo = 1;
-        Integer pageSize = 10;
-        //分页参数
-        if (params.get("pageNo") != null) {
-            pageNo = Integer.parseInt((String) params.get("pageNo"));
-        }
-        if (params.get("pageSize") != null) {
-            pageSize = Integer.parseInt((String) params.get("pageSize"));
-        }
-
-        Integer offset = (pageNo - 1) * pageSize;
-        DemandPageVo demandPageVo = new DemandPageVo(offset, pageSize);
-        return demandPageVo;
+    @Test
+    public void insert() {
+        System.out.println(("----- insert method test ------"));
+        Demand demand = new Demand();
+        demand.setDemandType(1);
+        demand.setReginId(1);
+        demand.setCategoryId(1);
+        demand.setUserId("1");
+        demand.setUid(1);
+        demand.setTitle("1");
+        demand.setCreatorId(1);
+        demand.setCreatorName("1");
+        demand.setCreateDate(new Date());
+        demand.setOrderNo(1);
+        int row = demandMapper.insert(demand);
+        Assert.assertEquals(1, row);
     }
 
 }

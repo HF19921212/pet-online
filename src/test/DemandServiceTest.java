@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import service.DemandService;
+import util.QueryUtils;
 import vo.DemandPageVo;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +32,7 @@ public class DemandServiceTest {
     public void selectPage() {
         System.out.println(("----- selectPage method test ------"));
         Map<String, Object> params = new HashMap<String, Object>();
-        DemandPageVo demandPageVo = getDemandVo(params);
+        DemandPageVo demandPageVo = QueryUtils.getDemandVo(params);
         Page<Demand> page = demandService.selectPage(demandPageVo);
         Assert.assertEquals(2, page.getTotal());
     }
@@ -39,31 +41,27 @@ public class DemandServiceTest {
     public void selectPageParam() {
         System.out.println(("----- selectPageParam method test ------"));
         Map<String, Object> params = new HashMap<String, Object>();
-        DemandPageVo demandPageVo = getDemandVo(params);
+        DemandPageVo demandPageVo = QueryUtils.getDemandVo(params);
         Page<Demand> page = demandService.selectPage(demandPageVo);
         Assert.assertEquals(2, page.getTotal());
     }
 
-    /**
-     * 构造分页参数
-     *
-     * @param params
-     * @return
-     */
-    private DemandPageVo getDemandVo(Map<String, Object> params) {
-        Integer pageNo = 1;
-        Integer pageSize = 10;
-        //分页参数
-        if (params.get("pageNo") != null) {
-            pageNo = Integer.parseInt((String) params.get("pageNo"));
-        }
-        if (params.get("pageSize") != null) {
-            pageSize = Integer.parseInt((String) params.get("pageSize"));
-        }
-
-        Integer offset = (pageNo - 1) * pageSize;
-        DemandPageVo demandPageVo = new DemandPageVo(offset, pageSize);
-        return demandPageVo;
+    @Test
+    public void save() {
+        System.out.println(("----- insert method test ------"));
+        Demand demand = new Demand();
+        demand.setDemandType(1);
+        demand.setReginId(1);
+        demand.setCategoryId(1);
+        demand.setUserId("1");
+        demand.setUid(1);
+        demand.setTitle("1");
+        demand.setCreatorId(1);
+        demand.setCreatorName("1");
+        demand.setCreateDate(new Date());
+        demand.setOrderNo(1);
+        boolean falg = demandService.save(demand);
+        Assert.assertEquals(true, falg);
     }
 
 }
