@@ -35,7 +35,10 @@
 
     <insert id="insert" parameterType="entity.Demand">
         insert demand(demand_type, regin_id, category_id, user_id, title, creator_id, creator_name, create_date, order_no)
-        values(#{demandType},#{reginId},#{categoryId},#{userId},#{title},#{creatorId},#{creatorName},#{createDate},#{orderNo})
+        values(#{demandType},#{reginId},#{categoryId},#{userId},#{title},#{creatorId},#{creatorName},now(),#{orderNo})
+        <selectKey resultType="int" keyProperty="uid" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
 </mapper>

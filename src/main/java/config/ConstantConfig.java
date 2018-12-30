@@ -10,4 +10,9 @@ public interface ConstantConfig {
 
     Integer PAGE_SITE = 1;
 
+    //系统账号
+    Integer ADMIN_USER_ID = 00000;
+
+    String ADMIN_USER_NAME = "admin";
+
 }
