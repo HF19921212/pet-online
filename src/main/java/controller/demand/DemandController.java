@@ -5,10 +5,13 @@ import bean.ResponseResult;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dto.DemandDto;
 import entity.Demand;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import service.DemandService;
+import util.Img2Base64Util;
 import util.QueryUtils;
 import vo.DemandPageVo;
 
@@ -44,8 +47,17 @@ public class DemandController {
      * @return
      */
     @PostMapping(value = "/saveDemandDto")
-    public ResponseResult saveDemand(DemandDto demandDto){
+    public ResponseResult saveDemand(@RequestParam("file") CommonsMultipartFile[] files, DemandDto demandDto){
         try{
+            StringBuffer sb = new StringBuffer();
+            for(CommonsMultipartFile multipartFile: files){
+                String fileStr = Img2Base64Util.getImageBase64one(multipartFile);
+                sb.append(fileStr);
+                sb.append(",");
+            }
+            if(StringUtils.isNotEmpty(sb.toString())){
+                demandDto.setFileBase64(sb.toString());
+            }
             demandService.add(demandDto);
         }catch (Exception e){
             return ResponseResult.e(ResponseCode.FAIL);

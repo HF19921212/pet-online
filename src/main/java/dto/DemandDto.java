@@ -20,6 +20,9 @@ public class DemandDto {
     /** 需求内容 **/
     private String content;
 
+    /** 附件内容 base 64 **/
+    private String fileBase64;
+
     public Integer getDemandType() {
         return demandType;
     }
@@ -58,5 +61,13 @@ public class DemandDto {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getFileBase64() {
+        return fileBase64;
+    }
+
+    public void setFileBase64(String fileBase64) {
+        this.fileBase64 = fileBase64;
     }
 }
