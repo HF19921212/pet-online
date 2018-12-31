@@ -3,6 +3,7 @@ package controller.demand;
 import bean.ResponseCode;
 import bean.ResponseResult;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import entity.DemandDetail;
 import dto.DemandDto;
 import entity.Demand;
 import org.apache.commons.lang.StringUtils;
@@ -63,6 +64,19 @@ public class DemandController {
             return ResponseResult.e(ResponseCode.FAIL);
         }
         return ResponseResult.e(ResponseCode.OK);
+    }
+
+    /**
+     * 查看详情
+     * @param demandId
+     * @return
+     */
+    @RequestMapping(value = "/getDetial/{demandId}")
+    public ResponseResult<DemandDetail> getDetial(@PathVariable Integer demandId){
+        ResponseResult<DemandDetail>  result = new ResponseResult<>();
+        DemandDetail demandDetailDto = demandService.getById(demandId);
+        result.setData(demandDetailDto);
+        return result;
     }
 
 }

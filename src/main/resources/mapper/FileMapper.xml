@@ -22,4 +22,8 @@
         </selectKey>
     </insert>
 
+    <select id="getByDid" parameterType="Integer" resultType="entity.File">
+        select * from file where did = #{did}
+    </select>
+
 </mapper>

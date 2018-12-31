@@ -1,14 +1,13 @@
 package service.impl;
 
-import bean.ResponseCode;
-import bean.ResponseResult;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import config.ConstantConfig;
 import dao.DemandContentMapper;
 import dao.DemandMapper;
 import dao.FileMapper;
+import entity.DemandDetail;
 import dto.DemandDto;
 import entity.Demand;
 import entity.DemandContent;
@@ -69,4 +68,14 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
             throw e;
         }
     }
+
+    @Override
+    public DemandDetail getById(Integer demandId) {
+        DemandDetail demandDetail = demandMapper.getById(demandId);
+        QueryWrapper<File> queryWrapper = new QueryWrapper<File>().eq("did",demandId);
+        List<File> fileList = fileMapper.selectList(queryWrapper);
+        demandDetail.setFile(fileList);
+        return demandDetail;
+    }
+
 }

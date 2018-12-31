@@ -1,6 +1,7 @@
 package dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import entity.DemandDetail;
 import entity.Demand;
 import org.springframework.stereotype.Repository;
 import vo.DemandPageVo;
@@ -13,5 +14,7 @@ public interface DemandMapper extends BaseMapper<Demand> {
     List<Demand> selectList(DemandPageVo demandPageVo);
 
     Integer selectCount(DemandPageVo demandPageVo);
+
+    DemandDetail getById(Integer demandId);
 
 }

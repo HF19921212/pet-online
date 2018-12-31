@@ -33,6 +33,7 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
+    <!-- 保存 -->
     <insert id="insert" parameterType="entity.Demand">
         insert demand(demand_type, regin_id, category_id, user_id, title, creator_id, creator_name, create_date, order_no)
         values(#{demandType},#{reginId},#{categoryId},#{userId},#{title},#{creatorId},#{creatorName},now(),#{orderNo})
@@ -40,5 +41,12 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
+
+    <!-- 查看详情 -->
+    <select id="getById" resultType="entity.DemandDetail">
+        select d.*,dc.content from demand d
+        inner join demand_content dc on d.uid = dc.did
+        where d.uid = #{demandId}
+    </select>
 
 </mapper>
