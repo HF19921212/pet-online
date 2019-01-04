@@ -49,4 +49,20 @@
         where d.uid = #{demandId}
     </select>
 
+    <!-- 微信小程序 api接口使用 -->
+
+    <select id="selectWxList" parameterType="vo.DemandPageVo" resultType="entity.WxDemand">
+        select d.uid,d.demand_type,d.regin_id,d.category_id,d.title
+        from demand d
+        inner join demand_content dc on d.uid = dc.did
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectWxCount" resultType="Integer">
+        select count(*)
+        from demand d
+        inner join demand_content dc on d.uid = dc.did
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
 </mapper>

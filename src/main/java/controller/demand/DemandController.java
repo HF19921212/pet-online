@@ -1,8 +1,8 @@
 package controller.demand;
 
+import bean.PageBean;
 import bean.ResponseCode;
 import bean.ResponseResult;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import entity.DemandDetail;
 import dto.DemandDto;
 import entity.Demand;
@@ -35,10 +35,10 @@ public class DemandController {
      * @return
      */
     @RequestMapping("/queryDemand/{currentPage}")
-    public Page<Demand> queryDemand(@PathVariable Integer currentPage){
+    public PageBean<Demand> queryDemand(@PathVariable Integer currentPage){
         Map<String, Object> params = new HashMap<String, Object>();
         DemandPageVo demandPageVo = QueryUtils.getDemandVo(params);
-        Page<Demand> page = demandService.selectPage(demandPageVo);
+        PageBean<Demand> page = demandService.selectPage(demandPageVo);
         return page;
     }
 

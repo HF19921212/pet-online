@@ -1,3 +1,4 @@
+import bean.PageBean;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.EmptyWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -33,8 +34,8 @@ public class DemandServiceTest {
         System.out.println(("----- selectPage method test ------"));
         Map<String, Object> params = new HashMap<String, Object>();
         DemandPageVo demandPageVo = QueryUtils.getDemandVo(params);
-        Page<Demand> page = demandService.selectPage(demandPageVo);
-        Assert.assertEquals(2, page.getTotal());
+        PageBean<Demand> page = demandService.selectPage(demandPageVo);
+        Assert.assertEquals(2, page.getTotalPage());
     }
 
     @Test
@@ -42,8 +43,8 @@ public class DemandServiceTest {
         System.out.println(("----- selectPageParam method test ------"));
         Map<String, Object> params = new HashMap<String, Object>();
         DemandPageVo demandPageVo = QueryUtils.getDemandVo(params);
-        Page<Demand> page = demandService.selectPage(demandPageVo);
-        Assert.assertEquals(2, page.getTotal());
+        PageBean<Demand> page = demandService.selectPage(demandPageVo);
+        Assert.assertEquals(2, page.getTotalPage());
     }
 
     @Test

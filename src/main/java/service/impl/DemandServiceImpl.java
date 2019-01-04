@@ -1,5 +1,6 @@
 package service.impl;
 
+import bean.PageBean;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -7,11 +8,8 @@ import config.ConstantConfig;
 import dao.DemandContentMapper;
 import dao.DemandMapper;
 import dao.FileMapper;
-import entity.DemandDetail;
+import entity.*;
 import dto.DemandDto;
-import entity.Demand;
-import entity.DemandContent;
-import entity.File;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,12 +31,16 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
     private FileMapper fileMapper;
 
     @Override
-    public Page<Demand> selectPage(DemandPageVo demandPageVo) {
-        Page page = new Page();
+    public PageBean<Demand> selectPage(DemandPageVo demandPageVo) {
+        PageBean page = new PageBean();
         List<Demand> list = demandMapper.selectList(demandPageVo);
         Integer count = demandMapper.selectCount(demandPageVo);
-        page.setRecords(list);
-        page.setTotal(count.longValue());
+        page.setPageSize(demandPageVo.getPageSize());
+        page.setCurrentPage(demandPageVo.getOffset() + 1);
+        page.setAllRow(count);
+        page.setTotalPage(PageBean.countTatalPage(demandPageVo.getPageSize(),count));
+        page.setList(list);
+        page.init();
         return page;
     }
 
@@ -78,4 +80,22 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         return demandDetail;
     }
 
+    @Override
+    public PageBean<WxDemand> selectWxList(DemandPageVo demandPageVo) {
+        PageBean page = new PageBean();
+        List<WxDemand> list = demandMapper.selectWxList(demandPageVo);
+        Integer count = demandMapper.selectWxCount(demandPageVo);
+        for(WxDemand wxDemand:list){
+            QueryWrapper<File> queryWrapper = new QueryWrapper<File>().eq("did",wxDemand.getUid());
+            List<File> fileList = fileMapper.selectList(queryWrapper);
+            wxDemand.setFiles(fileList);
+        }
+        page.setPageSize(demandPageVo.getPageSize());
+        page.setCurrentPage(demandPageVo.getOffset() + 1);
+        page.setAllRow(count);
+        page.setTotalPage(PageBean.countTatalPage(demandPageVo.getPageSize(),count));
+        page.setList(list);
+        page.init();
+        return page;
+    }
 }
