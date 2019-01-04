@@ -8,9 +8,9 @@ public class WxDemand {
 
     private Integer demandType;
 
-    private Integer reginId;
+    private String reginName;
 
-    private Integer categoryId;
+    private String categoryName;
 
     private String title;
 
@@ -32,20 +32,20 @@ public class WxDemand {
         this.demandType = demandType;
     }
 
-    public Integer getReginId() {
-        return reginId;
+    public String getReginName() {
+        return reginName;
     }
 
-    public void setReginId(Integer reginId) {
-        this.reginId = reginId;
+    public void setReginName(String reginName) {
+        this.reginName = reginName;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getTitle() {

@@ -7,7 +7,9 @@
         <id column="uid" property="uid" />
         <result column="demand_type" property="demandType" />
         <result column="regin_id" property="reginId" />
+        <result column="regin_name" property="reginName" />
         <result column="category_id" property="categoryId" />
+        <result column="category_name" property="categoryName" />
         <result column="user_id" property="userId" />
         <result column="title" property="title" />
         <result column="creator_id" property="creatorId" />
@@ -18,7 +20,7 @@
 
     <!-- 通用查询结果列-->
     <sql id="Base_Column_List">
-        uid, demand_type, regin_id, category_id, user_id, title, creator_id, creator_name, create_date, order_no
+        uid, demand_type, regin_id,regin_name, category_id,category_name, user_id, title, creator_id, creator_name, create_date, order_no
     </sql>
 
     <!--List<Demand> selectList();-->
@@ -27,42 +29,5 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <!--Integer selectCount();-->
-    <select id="selectCount" resultType="Integer">
-        select count(*) from demand
-        LIMIT #{offset}, #{pageSize}
-    </select>
-
-    <!-- 保存 -->
-    <insert id="insert" parameterType="entity.Demand">
-        insert demand(demand_type, regin_id, category_id, user_id, title, creator_id, creator_name, create_date, order_no)
-        values(#{demandType},#{reginId},#{categoryId},#{userId},#{title},#{creatorId},#{creatorName},now(),#{orderNo})
-        <selectKey resultType="int" keyProperty="uid" order="AFTER">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-    </insert>
-
-    <!-- 查看详情 -->
-    <select id="getById" resultType="entity.DemandDetail">
-        select d.*,dc.content from demand d
-        inner join demand_content dc on d.uid = dc.did
-        where d.uid = #{demandId}
-    </select>
-
-    <!-- 微信小程序 api接口使用 -->
-
-    <select id="selectWxList" parameterType="vo.DemandPageVo" resultType="entity.WxDemand">
-        select d.uid,d.demand_type,d.regin_id,d.category_id,d.title
-        from demand d
-        inner join demand_content dc on d.uid = dc.did
-        LIMIT #{offset}, #{pageSize}
-    </select>
-
-    <select id="selectWxCount" resultType="Integer">
-        select count(*)
-        from demand d
-        inner join demand_content dc on d.uid = dc.did
-        LIMIT #{offset}, #{pageSize}
-    </select>
 
 </mapper>

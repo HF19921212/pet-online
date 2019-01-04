@@ -1,21 +1,12 @@
 package service;
 
-import bean.PageBean;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import entity.DemandDetail;
-import dto.DemandDto;
 import entity.Demand;
-import entity.WxDemand;
-import vo.DemandPageVo;
 
 public interface DemandService extends IService<Demand> {
 
-    PageBean<Demand> selectPage(DemandPageVo demandPageVo);
-
-    void add(DemandDto demandDto);
-
-    DemandDetail getById(Integer demandId);
-
-    PageBean<WxDemand> selectWxList(DemandPageVo demandPageVo);
+    Page<Demand> selectPage(Page<Demand> page,QueryWrapper queryWrapper);
 
 }
