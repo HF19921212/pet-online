@@ -2,6 +2,7 @@ package controller.demand;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import common.SystemLog;
 import entity.Demand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,6 +30,7 @@ public class DemandController {
      * @return
      */
     @RequestMapping("/queryDemand/{currentPage}")
+    @SystemLog(module = "发布管理",methods = "发布管理-查询发布")
     public Page<Demand> queryDemand(@PathVariable Integer currentPage){
         Map<String, Object> params = new HashMap<String, Object>();
         DemandPageVo demandPageVo = QueryUtils.getDemandVo(params);
