@@ -1,6 +1,8 @@
-package common;
+package entity;
 
 public class LogEntity {
+
+    private Integer uid;
 
     private String MODULE;          //执行模块
 
@@ -9,6 +11,14 @@ public class LogEntity {
     private String RSPONSE_DATA;    //响应时间
 
     private String COMMITE;         //执行描述
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
 
     public String getMODULE() {
         return MODULE;

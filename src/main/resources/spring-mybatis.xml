@@ -92,6 +92,6 @@
     </aop:config>
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
-    <bean id="logAopAction" class="common.LogAspect"/>
+    <bean id="LogAspect" class="common.LogAspect"/>
 
 </beans>

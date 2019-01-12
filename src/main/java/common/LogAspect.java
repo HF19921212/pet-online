@@ -1,5 +1,6 @@
 package common;
 
+import entity.LogEntity;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -8,6 +9,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import service.LogEntityService;
 
 import java.lang.reflect.Method;
 
@@ -15,6 +18,9 @@ import java.lang.reflect.Method;
 public class LogAspect {
 
     private static Logger logger = LoggerFactory.getLogger(LogAspect.class);
+
+    @Autowired
+    private LogEntityService logEntityService;
 
     //配置接入点,如果不知道怎么配置,可以百度一下规则
     @Pointcut("execution(* controller..*.*(..))")
@@ -49,10 +55,8 @@ public class LogAspect {
         try {
             method = target.getClass().getMethod(methodName, parameterTypes);
         } catch (NoSuchMethodException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         } catch (SecurityException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
 
@@ -69,13 +73,13 @@ public class LogAspect {
                     log.setRSPONSE_DATA(""+(end-start));
                     log.setCOMMITE("执行成功");
                     //保存进数据库
-                    //logservice.saveLog(log);
+                    logEntityService.save(log);
                 } catch (Throwable e) {
                     // TODO Auto-generated catch block
                     long end = System.currentTimeMillis();
                     log.setRSPONSE_DATA(""+(end-start));
                     log.setCOMMITE("执行失败");
-                    //logservice.saveLog(log);
+                    logEntityService.save(log);
                     logger.info("LOGGER RESULT : {}",log);
                 }
             } else {//没有包含注解
