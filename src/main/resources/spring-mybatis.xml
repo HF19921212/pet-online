@@ -66,7 +66,7 @@
      </bean>
     <!-- 配置mybatis mapper接口 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="dao"/>
+        <property name="basePackage" value="com.frend.online.core.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
      </bean>
 
@@ -79,7 +79,7 @@
     <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <!-- 必须要有事务,没有则创建 -->
-            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="save*" propagation="REQUIRED" />
             <!-- 可以有可以没有 -->
             <tx:method name="select*" propagation="SUPPORTS" read-only="true" />
         </tx:attributes>
@@ -87,11 +87,11 @@
 
     <!-- Spring aop事务管理 -->
     <aop:config>
-        <aop:pointcut id="transactionPointcut" expression="execution(* service.impl..*Impl.*(..))" />
+        <aop:pointcut id="transactionPointcut" expression="execution(* com.frend.online.core.service.impl..*Impl.*(..))" />
         <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice"/>
     </aop:config>
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
-    <bean id="LogAspect" class="common.LogAspect"/>
+    <bean id="LogAspect" class="com.frend.online.comm.aspect.SysLogAspect"/>
 
 </beans>

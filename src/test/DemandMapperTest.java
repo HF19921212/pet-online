@@ -2,8 +2,8 @@
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import dao.DemandMapper;
-import entity.Demand;
+import com.frend.online.core.dao.DemandMapper;
+import com.frend.online.core.entity.Demand;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

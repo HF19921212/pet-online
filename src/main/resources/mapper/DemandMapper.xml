@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.DemandMapper">
+<mapper namespace="com.frend.online.core.dao.DemandMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="entity.Demand">
+    <resultMap id="BaseResultMap" type="com.frend.online.core.entity.Demand">
         <id column="uid" property="uid" />
         <result column="demand_type" property="demandType" />
         <result column="regin_id" property="reginId" />
@@ -23,11 +23,12 @@
         uid, demand_type, regin_id,regin_name, category_id,category_name, user_id, title, creator_id, creator_name, create_date, order_no
     </sql>
 
-    <!--List<Demand> selectList();-->
-    <select id="selectList" parameterType="vo.DemandPageVo" resultType="entity.Demand">
-        select * from demand
-        LIMIT #{offset}, #{pageSize}
-    </select>
-
+    <insert id="insert" parameterType="com.frend.online.core.entity.Demand">
+        insert demand(demand_type,regin_id, regin_name,category_id,category_name,user_id,title,creator_id,creator_name,create_date,order_no)
+        values(#{demandType},#{reginId},#{reginName},#{categoryId},#{categoryName},#{userId},#{title},#{creatorId},#{creatorName},#{createDate},#{orderNo})
+        <selectKey resultType="int" keyProperty="uid" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
 
 </mapper>

@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.FileMapper">
+<mapper namespace="com.frend.online.core.dao.FileMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="entity.File">
+    <resultMap id="BaseResultMap" type="com.frend.online.core.entity.File">
         <id column="uid" property="uid" javaType="java.lang.Integer"/>
         <result column="did" property="did" javaType="java.lang.Integer"/>
-        <result column="file" property="file" javaType="java.lang.String"/>
+        <result column="file_key" property="fileKey" javaType="java.lang.String"/>
+        <result column="file" property="file" jdbcType="BLOB"/>
     </resultMap>
 
     <!-- 通用查询结果列-->
     <sql id="Base_Column_List">
-        uid, did, content
+        uid, did, file_key,file
     </sql>
 
-    <insert id="insert" parameterType="entity.File">
-        insert file(did, file)
-        values(#{did},#{file})
+    <insert id="insert" parameterType="com.frend.online.core.entity.File">
+        insert file(did,file_key, file)
+        values(#{did},#{fileKey},#{file})
         <selectKey resultType="int" keyProperty="uid" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
 
-    <select id="getByDid" parameterType="Integer" resultType="entity.File">
+    <select id="getByDid" parameterType="Integer" resultType="com.frend.online.core.entity.File">
         select * from file where did = #{did}
     </select>
 
