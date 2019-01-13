@@ -8,8 +8,6 @@ public class File {
 
     private String fileKey;
 
-    private byte[] file;
-
     public Integer getUid() {
         return uid;
     }
@@ -34,11 +32,4 @@ public class File {
         this.fileKey = fileKey;
     }
 
-    public byte[] getFile() {
-        return file;
-    }
-
-    public void setFile(byte[] file) {
-        this.file = file;
-    }
 }

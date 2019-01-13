@@ -5,6 +5,9 @@ package com.frend.online.core.vo;
  */
 public class DemandVo {
 
+    //需求编号
+    private Integer uid;
+
     /** 需求类型 **/
     private String demandTypeName;
 
@@ -16,6 +19,16 @@ public class DemandVo {
 
     /** 发布标题 **/
     private String title;
+
+    private String jsonPhoto;
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
 
     public String getDemandTypeName() {
         return demandTypeName;
@@ -47,5 +60,13 @@ public class DemandVo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getJsonPhoto() {
+        return jsonPhoto;
+    }
+
+    public void setJsonPhoto(String jsonPhoto) {
+        this.jsonPhoto = jsonPhoto;
     }
 }

@@ -7,17 +7,16 @@
         <id column="uid" property="uid" javaType="java.lang.Integer"/>
         <result column="did" property="did" javaType="java.lang.Integer"/>
         <result column="file_key" property="fileKey" javaType="java.lang.String"/>
-        <result column="file" property="file" jdbcType="BLOB"/>
     </resultMap>
 
     <!-- 通用查询结果列-->
     <sql id="Base_Column_List">
-        uid, did, file_key,file
+        uid, did, file_key
     </sql>
 
     <insert id="insert" parameterType="com.frend.online.core.entity.File">
-        insert file(did,file_key, file)
-        values(#{did},#{fileKey},#{file})
+        insert file(did,file_key)
+        values(#{did},#{fileKey})
         <selectKey resultType="int" keyProperty="uid" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>

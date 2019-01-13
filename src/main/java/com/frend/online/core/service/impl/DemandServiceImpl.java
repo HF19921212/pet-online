@@ -1,5 +1,6 @@
 package com.frend.online.core.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -46,12 +47,20 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         if(pager.getRecords() != null){
             for(Demand demand : pager.getRecords()){
                 DemandVo dto = new DemandVo();
+                dto.setUid(demand.getUid());
                 dto.setDemandTypeName(DemandType.getName(demand.getDemandType()));
                 dto.setCategoryName(demand.getCategoryName());
                 dto.setReginName(demand.getReginName());
                 dto.setTitle(demand.getTitle());
 
                 list.add(dto);
+            }
+            for(DemandVo dto : list){
+                //加载附件
+                QueryWrapper fileQueryWrapper = new QueryWrapper();
+                fileQueryWrapper.eq("did",dto.getUid());
+                List<File> files = fileMapper.selectList(fileQueryWrapper);
+                dto.setJsonPhoto(JSON.toJSONString(files));
             }
             demandDto.setRecords(list);
             demandDto.setCurrent(pager.getCurrent());
@@ -80,6 +89,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
             File file = new File();
             file.setDid(demand.getUid());
             file.setFileKey(uuid);
+            file.setFile(commonsMultipartFile.getBytes());
             fileMapper.insert(file);
         }
 
