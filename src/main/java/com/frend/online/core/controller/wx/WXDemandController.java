@@ -8,6 +8,8 @@ import com.frend.online.comm.annotation.SystemLog;
 import com.frend.online.core.dto.DemandDto;
 import com.frend.online.core.vo.DemandVo;
 import com.frend.online.core.entity.Demand;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +29,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(tags = "发布需求")
 public class WXDemandController {
 
     @Autowired
@@ -39,6 +42,7 @@ public class WXDemandController {
      */
     @RequestMapping("/queryDemand/{currentPage}")
     @SystemLog(module = "小程序",methods = "小程序-查询朋友圈")
+    @ApiOperation(httpMethod = "GET", value = "程序-查询朋友圈")
     public Page<DemandVo> queryDemand(@PathVariable Integer currentPage){
         Map<String, Object> params = new HashMap<String, Object>();
         DemandPageDTO demandPageVo = QueryDTO.getDemandVo(params);
@@ -52,6 +56,7 @@ public class WXDemandController {
 
     @RequestMapping("/saveDemand")
     @SystemLog(module = "小程序",methods = "小程序-发布朋友圈")
+    @ApiOperation(httpMethod = "POST", value = "小程序-发布朋友圈")
     public ResponseResult saveDemand(@RequestParam("file") CommonsMultipartFile[] files, DemandDto demandDto){
         demandService.saveDemand(demandDto,files);
         return ResponseResult.e(ResponseCode.OK);

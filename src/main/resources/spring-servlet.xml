@@ -35,4 +35,9 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
         <property name="defaultEncoding" value="UTF-8"></property>
     </bean>
 
+    <!--  swagger静态文件路径 -->
+    <mvc:resources mapping="/swagger/**" location="/WEB-INF/swagger/" cache-period="31556926"/>
+    <mvc:default-servlet-handler />
+    <bean class="com.frend.online.core.config.SwaggerConfig" />
+
 </beans>

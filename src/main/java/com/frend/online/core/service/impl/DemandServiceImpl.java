@@ -89,7 +89,6 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
             File file = new File();
             file.setDid(demand.getUid());
             file.setFileKey(uuid);
-            file.setFile(commonsMultipartFile.getBytes());
             fileMapper.insert(file);
         }
 
