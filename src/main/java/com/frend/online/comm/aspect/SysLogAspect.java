@@ -76,7 +76,6 @@ public class SysLogAspect {
                     //保存进数据库
                     logEntityService.save(log);
                 } catch (Throwable e) {
-                    // TODO Auto-generated catch block
                     long end = System.currentTimeMillis();
                     log.setRSPONSE_DATA(""+(end-start));
                     log.setCOMMITE("执行失败");

@@ -26,11 +26,11 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     private ApiInfo apiInfo() {
         Contact contact = new Contact("何帆", "https://www.baidu.com", "hf13216163956@aliyun.com");
-        return new ApiInfo("pet-online前台API接口",//大标题 title
-                "宠物在线平台-API",//小标题
+        return new ApiInfo("pet-online前台API接口",//接口名称
+                "宠物在线平台-API",//接口介绍内容
                 "0.0.1",//版本
                 "www.baidu.com",//termsOfServiceUrl
-                contact,//作者
+                 contact,//作者
                 "pet-online",//链接显示文字
                 "https://www.baidu.com"//网站链接
         );

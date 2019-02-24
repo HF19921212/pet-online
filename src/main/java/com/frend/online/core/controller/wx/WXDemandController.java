@@ -50,6 +50,7 @@ public class WXDemandController {
         page.setCurrent(currentPage);
         page.setSize(1);
         QueryWrapper queryWrapper = new QueryWrapper();
+
         Page<DemandVo> demandDtoResult= demandService.selectPageDemandDto(page,queryWrapper);
         return demandDtoResult;
     }
